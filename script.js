@@ -8,24 +8,25 @@ const size = parseInt(prompt("size max(30) min(20)", "30"));
 const width = parseInt(prompt("width max(40)", "40"));
 const height = parseInt(prompt("height max(20)", "20"));
 
+const quantity = width * height;
+
 container.style.width = (width * (size + 2)) + "px";
 container.style.height = (height * (size + 2)) + "px";
 
-var quantity = 0;
+document.body.style.setProperty('--size-square', size + "px")
+
 var color = "#FFF";
 var drag = false;
 var borderHide = false;
-
-document.body.style.setProperty('--size-square', size + "px")
 
 forEachAll(addSquares);
 
 //Thats foreach all the squares and affect all with one action (Send the ID)
 function forEachAll(action) {
-    quantity = width * height;
-    while (quantity > 0) {
-        quantity--;
-        action(quantity);
+    id = quantity;
+    while (id > 0) {
+        id--;
+        action(id);
     }
 }
 
@@ -47,30 +48,30 @@ function square(id) {
     return (
         '<div id=' + id + ' ' +
         'draggable="false" ' +
-        'onmouseover="addHover(' + id + ')" ' +
-        'onmouseout="removeHoverAndDrag(' + id + ')" ' +
+        'onmouseover="addHover(this)" ' +
+        'onmouseout="removeHoverAndDrag(this)" ' +
         'onmousedown="turnOnDrag()" ' +
         'onmouseup="turnOffDrag()" ' +
-        'onmousemove="checkDrag(' + id + ')" ' +
-        'onclick="paint(' + id + ')" ' +
+        'onmousemove="checkDrag(this)" ' +
+        'onclick="paint(this)" ' +
         'class="square"></div>'
     );
 }
 
-function addHover(id) {
+function addHover(square) {
     //Temporal CSS for hover and paint the saquare with the selected color
-    document.getElementById(id).classList.add("hover-square");
+    square.classList.add("hover-square");
 }
 
-function removeHoverAndDrag(id) {
+function removeHoverAndDrag(square) {
     //Remove the hover, and check if drag is active
-    document.getElementById(id).classList.remove("hover-square");
-    checkDrag(id);
+    square.classList.remove("hover-square");
+    checkDrag(square);
 }
 
-function checkDrag(id) {
+function checkDrag(square) {
     //If paint with drag is active
-    if (drag) paint(document.getElementById(id))
+    if (drag) paint(square)
 }
 
 function paint(square) {
