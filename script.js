@@ -1,4 +1,7 @@
 const container = document.getElementById("container");
+const statusBorder = document.getElementById("statusBorder");
+
+const borderColor = "rgba(120,120,120,0.5)"
 
 const size = parseInt(prompt("size max(30) min(20)", "30"));
 
@@ -11,17 +14,27 @@ container.style.height = (height * (size + 2)) + "px";
 var quantity = 0;
 var color = "#FFF";
 var drag = false;
+var borderHide = false;
 
 document.body.style.setProperty('--size-square', size + "px")
 
 forEachAll(addSquares);
 
-//Thats map all the squares and affect all with one action
+//Thats foreach all the squares and affect all with one action (Send the ID)
 function forEachAll(action) {
     quantity = width * height;
     while (quantity > 0) {
         quantity--;
         action(quantity);
+    }
+}
+
+//Thats map all the squares and affect all with one action (Send the Square)
+function mapAll(action) {
+    id = width * height;
+    while (id > 0) {
+        id--;
+        action(document.getElementById(id));
     }
 }
 
@@ -56,12 +69,14 @@ function removeHoverAndDrag(id) {
 }
 
 function checkDrag(id) {
-    if (drag) paint(id)
+    //If paint with drag is active
+    if (drag) paint(document.getElementById(id))
 }
 
-function paint(id) {
+function paint(square) {
     //Paint the saquare
-    document.getElementById(id).style.backgroundColor = color;
+    square.style.backgroundColor = color;
+    if (borderHide) square.style.borderColor = color;
 }
 
 function turnOnDrag() {
@@ -80,28 +95,40 @@ function changeColor(newColor) {
 
 function clearAll() {
     //Erase all the squares
-    forEachAll(clearOne);
+    mapAll(clearOne);
 }   
 
-function clearOne(id) {
-    document.getElementById(id).style.backgroundColor = "black";
+function clearOne(square) {
+    square.style.backgroundColor = "black";
+    square.style.borderColor = borderHide ? "black" : borderColor;
 }
 
-//The next 4 is for show and hide the lines of the squares
+//The next 5 is for show and hide the lines of the squares
+
+function changeStateBorder() {
+    if(borderHide) {
+        showLines();
+        statusBorder.value = "Hide lines"
+    }   
+    else {
+        hideLines();
+        statusBorder.value = "Show lines"
+    }
+    borderHide = !borderHide;
+}
 
 function showLines() {
-    forEachAll(showBorder);
+    mapAll(showBorder);
 }
 
-function showBorder(id) {
-    document.getElementById(id).style.border =
-        "solid 1px rgba(255, 255, 255, 0.2)";
+function showBorder(square) {
+    square.style.borderColor = borderColor;
 }
 
 function hideLines() {
-    forEachAll(hideBorder);
+    mapAll(hideBorder);
 }
 
-function hideBorder(id) {
-    document.getElementById(id).style.border = "solid 1px transparent";
+function hideBorder(square) {
+    square.style.borderColor = ((square.style.backgroundColor + "").length > 0) ? square.style.backgroundColor : "black";
 }

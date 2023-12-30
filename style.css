@@ -22,6 +22,10 @@ body {
     justify-content: center;
 }
 
+#statusBorder {
+    width: 150px;
+}
+
 .buttons {
     display: flex;
     flex-direction: row;
@@ -32,8 +36,8 @@ body {
 }
 
 .square {
-    width: var(--size-square);
-    height: var(--size-square);
+    width: var(--size-square) !important;
+    height: var(--size-square) !important;
     background-color: black;
     border: solid 1px rgba(120, 120, 120, 0.5);
 }
