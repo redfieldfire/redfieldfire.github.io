@@ -1,12 +1,12 @@
 const container = document.getElementById('container');
 
-const size = parseInt(prompt("size"))
+const size = parseInt(prompt("size", "30"))
 
-const width = parseInt(prompt("width"))
-const height = parseInt(prompt("height"))
+const width = parseInt(prompt("width", "30"))
+const height = parseInt(prompt("height", "10"))
 
-container.style.width = (width * size) + "px"
-container.style.height = (height * (size-(size/30))) + "px"
+container.style.width = (width * (size + 2)) + "px"
+container.style.height = (height * (size + 1)) + "px"
 
 var quantity = 0
 var color = "#000"
