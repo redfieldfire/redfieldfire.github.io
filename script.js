@@ -4,7 +4,7 @@ const width = parseInt(prompt("width"))
 const height = parseInt(prompt("height"))
 
 container.style.width = (width * 32) + "px"
-container.style.height = (height * 31.5) + "px"
+container.style.height = (height * 31) + "px"
 
 var quantity = 0
 var color = "#000"
@@ -46,7 +46,7 @@ function clearAll() {
 }
 
 function clearOne(id) {
-    document.getElementById(id).style.backgroundColor = "white"
+    document.getElementById(id).style.backgroundColor = "black"
 }
 
 function showLines(){
